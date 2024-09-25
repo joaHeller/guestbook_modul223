@@ -1,0 +1,15 @@
+<div class="entry-container">
+  <%= render 'entry', entry: @entry %>
+  <div class="navigation">
+    <%= link_to '<<', entry_path(@entries.last) unless @entry == @entries.first %>
+    <%= link_to '>>', entry_path(@entries.second) unless @entry == @entries.last %>
+  </div>
+</div>
+<%= link_to 'Neuer Eintrag', new_entry_path %><div class="entry-frame">
+  <div class="profile-image"></div>
+  <h2><%= entry.name %></h2>
+  <p><%= entry.email %></p>
+  <p><%= entry.date.strftime('%d.%m.%y') %></p>
+  <p>Nachricht:</p>
+  <p class="message"><%= entry.message %></p>
+</div>

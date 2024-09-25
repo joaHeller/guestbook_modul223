@@ -1,0 +1,33 @@
+<h1>Eintrag bearbeiten</h1>
+
+<%= form_with(model: @entry, local: true) do |f| %>
+  <% if @entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entry.errors.count, "error") %> verhinderten, dass dieser Eintrag gespeichert wurde:</h2>
+      <ul>
+        <% @entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <div>
+    <%= f.label :message %>
+    <%= f.text_area :message %>
+  </div>
+
+  <%= f.submit 'Eintrag aktualisieren' %>
+<% end %>
+
+<%= link_to 'Zurück', entries_path %>

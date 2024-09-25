@@ -1,0 +1,17 @@
+<h1>Meine Einträge</h1>
+
+<%= link_to 'Neuer Eintrag', new_entry_path %>
+
+<% if @entries.any? %>
+  <% @entries.each do |entry| %>
+    <div>
+      <h3><%= entry.name %></h3>
+      <p><%= entry.message %></p>
+      <small><%= entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+      <%= link_to 'Bearbeiten', edit_entry_path(entry) %>
+      <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Sie haben noch keine Einträge erstellt.</p>
+<% end %>

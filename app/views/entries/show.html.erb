@@ -1,0 +1,26 @@
+<h1>Eintrag Details</h1>
+
+<div>
+  <strong>Name:</strong>
+  <%= @entry.name %>
+</div>
+
+<div>
+  <strong>Email:</strong>
+  <%= @entry.email %>
+</div>
+
+<div>
+  <strong>Nachricht:</strong>
+  <%= @entry.message %>
+</div>
+
+<div>
+  <strong>Erstellt am:</strong>
+  <%= @entry.created_at.strftime("%d.%m.%Y %H:%M") %>
+</div>
+
+<% if current_user == @entry.user %>
+  <%= link_to 'Bearbeiten', edit_entry_path(@entry) %> |
+<% end %>
+<%= link_to 'Zurück zur Übersicht', entries_path %>
