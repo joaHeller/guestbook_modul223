@@ -1,5 +1,12 @@
 <div class="profile-container">
-  <h2>Mein Profil</h2>
+  <nav>
+    <%= link_to 'Home', root_path %>
+    <%= link_to 'Meine Einträge', entries_path %>
+    <%= link_to 'Logout', logout_path, method: :delete %>
+  </nav>
+
+  <h1>Mein Profil</h1>
+
   <% if @user %>
     <%= form_for @user, html: { multipart: true } do |f| %>
       <div class="form-group">
@@ -14,12 +21,15 @@
         <%= f.label :photo, 'Profilbild' %>
         <%= f.file_field :photo, class: 'form-control' %>
       </div>
+      <% if @user.photo.attached? %>
+        <div class="profile-image">
+          <%= image_tag @user.photo %>
+        </div>
+      <% end %>
       <%= f.submit 'Aktualisieren', class: 'btn btn-primary' %>
     <% end %>
-    
-    <%= button_to 'Ausloggen', logout_path, method: :delete, class: 'btn btn-danger mt-3' %>
   <% else %>
     <p>Benutzer nicht gefunden. <%= link_to 'Zum Login', login_path %></p>
   <% end %>
-  <%= link_to 'Zurück zur Hauptseite', root_path, class: 'btn btn-link mt-3' %>
+  <%= link_to 'Zurück zur Hauptseite', root_path, class: 'btn btn-link' %>
 </div>

@@ -1,17 +1,7 @@
 class UsersController < ApplicationController
-
-  def show
-    @user = User.find_by(id: params[:id])
-    if @user
-      @entries = @user.entries
-    else
-      redirect_to root_path, alert: 'Benutzer nicht gefunden.'
-    end
-  end
-
-  def show
-    @user = current_user
-  end
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :require_login, except: [:new, :create]
+  before_action :require_correct_user, only: [:edit, :update]
 
   def new
     @user = User.new
@@ -21,23 +11,47 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path, notice: 'Erfolgreich registriert!'
+      redirect_to @user, notice: 'Benutzer wurde erfolgreich erstellt.'
     else
-      puts  @user.errors.inspect
       render :new
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
   def update
-    @user = current_user
     if @user.update(user_params)
-      redirect_to @user, notice: 'Profil erfolgreich aktualisiert.'
+      redirect_to @user, notice: 'Profil wurde erfolgreich aktualisiert.'
     else
-      render :show
+      render :edit
     end
   end
 
+  private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :photo)
+  end
+
+  def require_login
+    unless current_user
+      flash[:error] = "Sie müssen angemeldet sein, um diese Seite zu sehen."
+      redirect_to login_path
+    end
+  end
+
+  def require_correct_user
+    unless current_user == @user
+      flash[:error] = "Sie haben keine Berechtigung, diese Aktion durchzuführen."
+      redirect_to root_path
+    end
   end
 end
