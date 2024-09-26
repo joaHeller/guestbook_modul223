@@ -1,10 +1,21 @@
-<div class="entry-container">
-  <% @entries.each do |entry| %>
-    <%= render 'entry', entry: entry %>
-  <% end %>
-  <div class="navigation">
-    <%= link_to '<<', entry_path(@entries.last) unless @entry == @entries.first %>
-    <%= link_to '>>', entry_path(@entries.second) unless @entry == @entries.last %>
-  </div>
-</div>
-<%= link_to 'Neuer Eintrag', new_entry_path %>
+<h1>Gästebucheinträge</h1>
+
+<%= link_to 'Neuen Eintrag erstellen', new_entry_path, class: 'new-entry-button' %>
+
+<table>
+
+  <tbody>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td><%= image_tag(entry.profile_pic, size: "100x100") if entry.profile_pic.present? %></td>
+        <td><%= entry.name %></td>
+        <td><%= entry.email %></td>
+        <td><%= entry.date %></td>
+        <td><%= entry.message %></td>
+        <td><%= link_to 'Anzeigen', entry %></td>
+        <td><%= link_to 'Bearbeiten', edit_entry_path(entry) %></td>
+        <td><%= link_to 'Löschen', entry, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

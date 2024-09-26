@@ -5,13 +5,6 @@ body {
   padding: 20px;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
 .login-container {
   max-width: 300px;
   margin: 50px auto;
@@ -158,4 +151,96 @@ nav {
 .nav-arrow {
   text-decoration: none;
   color: #333;
+}
+
+
+.guestbook-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+.guestbook-title {
+  font-size: 24px;
+  font-style: italic;
+}
+
+.profile-icon {
+  font-size: 24px;
+  color: #333;
+  text-decoration: none;
+}
+
+.entry-frame {
+  border: 2px solid #ffd700;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.entry-frame img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.entry-message {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+}
+
+.nav-arrow {
+  text-decoration: none;
+  color: #333;
+}
+
+.entries-list {
+  margin-top: 20px;
+}
+
+.entry {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  float: left;
+  margin-right: 15px;
+}
+
+.entry-message {
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
 }

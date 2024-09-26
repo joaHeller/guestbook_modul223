@@ -1,33 +1,26 @@
-<h1>Eintrag bearbeiten</h1>
+<div class="guestbook-container">
+  <header class="guestbook-header">
+    <h1 class="guestbook-title">Gästebuch</h1>
+    <%= link_to user_path(current_user), class: 'profile-icon' do %>
+      <i class="fas fa-user"></i>
+    <% end %>
+  </header>
 
-<%= form_with(model: @entry, local: true) do |f| %>
-  <% if @entry.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@entry.errors.count, "error") %> verhinderten, dass dieser Eintrag gespeichert wurde:</h2>
-      <ul>
-        <% @entry.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="entry-frame">
+    <% if @current_entry %>
+      <%= image_tag @current_entry.user.photo if @current_entry.user.photo.attached? %>
+      <h2><%= @current_entry.user.name %></h2>
+      <p><%= @current_entry.user.email %></p>
+      <p><%= @current_entry.created_at.strftime('%d.%m.%y') %></p>
+      <p>Nachricht:</p>
+      <p class="entry-message"><%= @current_entry.message %></p>
+    <% else %>
+      <p>Keine Einträge vorhanden.</p>
+    <% end %>
   </div>
 
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+  <div class="navigation">
+    <%= link_to '<', entry_path(@entries.second), class: 'nav-arrow' if @entries.count > 1 %>
+    <%= link_to '>', entry_path(@entries.third), class: 'nav-arrow' if @entries.count > 2 %>
   </div>
-
-  <div>
-    <%= f.label :message %>
-    <%= f.text_area :message %>
-  </div>
-
-  <%= f.submit 'Eintrag aktualisieren' %>
-<% end %>
-
-<%= link_to 'Zurück', entries_path %>
+</div>

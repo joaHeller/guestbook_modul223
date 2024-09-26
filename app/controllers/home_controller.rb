@@ -1,8 +1,17 @@
 class HomeController < ApplicationController
+    skip_before_action :require_login, only: [:index]
+  
     def index
-      @entries = Entry.order(created_at: :desc)
-      @current_entry = @entries.first
-      @prev_entry = @entries.second
-      @next_entry = nil
+      if current_user
+        @entries = Entry.order(created_at: :desc)
+        @current_entry = @entries.first
+        render 'guestbook'
+      else
+        redirect_to login_path
+      end
     end
   end
+  
+  
+  
+ 
