@@ -1,6 +1,6 @@
 <div class="login-container">
   <h2>Registrieren</h2>
-  <%= form_for @user do |f| %>
+  <%= form_for @user, url: signup_path do |f| %>
     <div class="form-group">
       <%= f.label :name, class: 'sr-only' %>
       <div class="input-group">

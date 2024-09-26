@@ -7,13 +7,14 @@ class UsersController < ApplicationController
     else
       redirect_to root_path, alert: 'Benutzer nicht gefunden.'
     end
+  end
 
-    def show
-      @user = current_user
-    end
+  def show
+    @user = current_user
+  end
 
   def new
-    @user = User.new(user_params)
+    @user = User.new
   end
 
   def create
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path, notice: 'Erfolgreich registriert!'
     else
+      puts  @user.errors.inspect
       render :new
     end
   end
@@ -35,9 +37,7 @@ class UsersController < ApplicationController
     end
   end
 
-
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-end
 end

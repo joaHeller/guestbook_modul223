@@ -1,7 +1,7 @@
 
 <div class="login-container">
   <h2>Login</h2>
-  <%= form_for :session, url: login_path do |f| %>
+  <%= form_with url: login_path do |f| %>
     <div class="form-group">
       <%= f.label :email, class: 'sr-only' %>
       <div class="input-group">
@@ -19,6 +19,6 @@
     <%= f.submit 'LOGIN', class: 'btn btn-primary btn-block' %>
   <% end %>
   <div class="text-center mt-3">
-    <%= link_to 'Registrieren', new_user_path, class: 'register-page' %>
+    <%= link_to 'Registrieren', signup_path, class: 'register-page' %>
   </div>
 </div>

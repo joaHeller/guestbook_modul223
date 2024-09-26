@@ -19,13 +19,13 @@
   </head>
 <nav>
   <%= link_to 'Home', root_path %>
-  <% if user_signed_in? %>
+  <% if current_user %>
     <%= link_to 'Meine Einträge', user_path(current_user) %>
-    <%= link_to 'Logout', logout_path, method: :delete %>
+    <%= link_to 'Logout', logout_path, data: { turbo_method: :delete } %>
 
  <% else %>
   <%= link_to 'Login', login_path %>
-  <%= link_to 'Registrieren', new_user_path %>
+  <%= link_to 'Registrieren', signup_path %>
 <% end %>
 
 </nav>
