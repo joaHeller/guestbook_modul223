@@ -1,0 +1,9 @@
+<div class="entry-frame">
+  <div class="profile-image"></div>
+  <h2><%= entry.name %></h2>
+  <p><%= entry.email %></p>
+  <p><%= entry.created_at.strftime('%d.%m.%y') %></p>
+  <p>Nachricht:</p>
+  <p class="message"><%= entry.message %></p>
+  <p><%= entry.date.strftime('%d.%m.%y') if entry.date.present? %></p>
+</div>

@@ -1,0 +1,26 @@
+<div class="guestbook-container">
+  <header>
+    <h1>Gästebuch</h1>
+    <%= link_to user_path(current_user), class: 'profile-icon' do %>
+      <i class="fas fa-user"></i>
+    <% end %>
+  </header>
+  
+  <div class="entry-frame">
+    <% if @current_entry %>
+      <%= image_tag @current_entry.photo.url, class: 'profile-photo' if @current_entry.photo.present? %>
+      <h2><%= @current_entry.name %></h2>
+      <p><%= @current_entry.email %></p>
+      <p><%= @current_entry.created_at.strftime('%d.%m.%y') %></p>
+      <p>Nachricht:</p>
+      <p class="message"><%= @current_entry.message %></p>
+    <% else %>
+      <p>Kein Eintrag vorhanden.</p>
+    <% end %>
+  </div>
+  
+  <div class="navigation">
+    <%= link_to '<', entry_path(@prev_entry), class: 'nav-arrow' if @prev_entry %>
+    <%= link_to '>', entry_path(@next_entry), class: 'nav-arrow' if @next_entry %>
+  </div>
+</div>

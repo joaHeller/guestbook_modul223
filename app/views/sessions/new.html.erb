@@ -1,15 +1,24 @@
-<h1>Login</h1>
 
-<%= form_with(scope: :session, url: login_path, local: true) do |f| %>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
+<div class="login-container">
+  <h2>Login</h2>
+  <%= form_for :session, url: login_path do |f| %>
+    <div class="form-group">
+      <%= f.label :email, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Passwort' %>
+      </div>
+    </div>
+    <%= f.submit 'LOGIN', class: 'btn btn-primary btn-block' %>
+  <% end %>
+  <div class="text-center mt-3">
+    <%= link_to 'Registrieren', new_user_path, class: 'register-page' %>
   </div>
-
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <%= f.submit "Login" %>
-<% end %>
+</div>

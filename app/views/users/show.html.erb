@@ -1,17 +1,21 @@
-<h1>Meine Einträge</h1>
-
-<%= link_to 'Neuer Eintrag', new_entry_path %>
-
-<% if @entries.any? %>
-  <% @entries.each do |entry| %>
-    <div>
-      <h3><%= entry.name %></h3>
-      <p><%= entry.message %></p>
-      <small><%= entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
-      <%= link_to 'Bearbeiten', edit_entry_path(entry) %>
-      <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
+<div class="profile-container">
+  <h2>Mein Profil</h2>
+  <%= form_for current_user, html: { multipart: true } do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :photo, 'Profilbild' %>
+      <%= f.file_field :photo, class: 'form-control' %>
+    </div>
+    <%= f.submit 'Aktualisieren', class: 'btn btn-primary' %>
   <% end %>
-<% else %>
-  <p>Sie haben noch keine Einträge erstellt.</p>
-<% end %>
+  
+  <%= button_to 'Ausloggen', logout_path, method: :delete, class: 'btn btn-danger mt-3' %>
+  <%= link_to 'Zurück zur Hauptseite', root_path, class: 'btn btn-link mt-3' %>
+</div>

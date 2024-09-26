@@ -1,38 +1,37 @@
-<h1>Registrierung</h1>
-
-<%= form_with(model: @user, local: true) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="login-container">
+  <h2>Registrieren</h2>
+  <%= form_for @user do |f| %>
+    <div class="form-group">
+      <%= f.label :name, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Name' %>
+      </div>
     </div>
+    <div class="form-group">
+      <%= f.label :email, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Passwort' %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: 'sr-only' %>
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Passwort wiederholen' %>
+      </div>
+    </div>
+    <%= f.submit 'Registrieren', class: 'btn btn-primary btn-block' %>
   <% end %>
-
-  <div>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
+  <div class="text-center mt-3">
+    <%= link_to 'Zurück zum Login', login_path, class: 'btn btn-link' %>
   </div>
-
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div>
-    <%= f.submit "Registrieren" %>
-  </div>
-<% end %>
+</div>
