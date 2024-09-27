@@ -6,6 +6,7 @@
   <div class="entry">
     <h2><%= entry.title %></h2>
     <p><%= entry.content %></p>
+     <small>Erstellt am: <%= entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
     <%= link_to 'Bearbeiten', edit_entry_path(entry) %>
     <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { turbo_method: :delete, confirm: 'Sind Sie sicher?' } %>
   </div>

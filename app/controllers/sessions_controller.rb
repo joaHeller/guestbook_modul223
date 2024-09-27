@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path, notice: "Sie wurden ausgeloggt."
+    redirect_to signup_path, notice: "Sie wurden ausgeloggt."
   end
 end

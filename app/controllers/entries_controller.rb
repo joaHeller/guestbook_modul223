@@ -1,6 +1,9 @@
 class EntriesController < ApplicationController
-  def index
-    @entries = Entry.all
+  before_action :require_login
+  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+
+   def index
+    @entries = current_user.entries
   end
 
   def show
@@ -8,15 +11,18 @@ class EntriesController < ApplicationController
   end
 
   def new
-    @entry = Entry.new
+    @entry = current_user.entries.build
+  end
+
+  def edit
   end
 
   def create
-    @entry = Entry.new(entry_params)
+    @entry = current_user.entries.build(entry_params)
     if @entry.save
-      redirect_to root_path, notice: 'Eintrag wurde erfolgreich erstellt.'
+      redirect_to entries_path, notice: 'Eintrag wurde erfolgreich erstellt.'
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
@@ -41,5 +47,12 @@ class EntriesController < ApplicationController
 
   def entry_params
     params.require(:entry).permit(:name, :title, :content, :email, :date, :message)
+  end
+
+  def require_login
+    unless current_user
+      flash[:error] = "Sie müssen eingeloggt sein, um diese Aktion durchzuführen."
+      redirect_to login_path
+    end
   end
 end

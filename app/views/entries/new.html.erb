@@ -1,4 +1,5 @@
 <h1>Neuer Eintrag</h1>
+
 <%= form_with(model: @entry, local: true) do |form| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
@@ -11,21 +12,14 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
   </div>
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
+
+  <div class="actions">
+    <%= form.submit 'Eintrag speichern' %>
   </div>
-  <div>
-    <%= form.label :date %>
-    <%= form.date_field :date %>
-  </div>
-  <div>
-    <%= form.label :message %>
-    <%= form.text_area :message %>
-  </div>
-  <%= form.submit 'Eintrag erstellen' %>
 <% end %>
+
+<%= link_to 'Zurück', entries_path %>
