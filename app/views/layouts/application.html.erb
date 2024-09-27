@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Guestbook" %></title>
+  <title><%= content_for(:title) || "Guestbook" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -16,20 +17,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    
+    
+    <style>
+      .blue-button {
+        background-color: blue;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+      }
+    </style>
   </head>
-<nav>
-  <%= link_to 'Home', root_path %>
-  <% if current_user %>
-    <%= link_to 'Meine Einträge', user_path(current_user) %>
-    <%= link_to 'Logout', logout_path, data: { turbo_method: :delete } %>
-
- <% else %>
-  <%= link_to 'Login', login_path %>
-  <%= link_to 'Registrieren', signup_path %>
-<% end %>
-
-</nav>
   <body>
+    <nav>
+      <%= link_to 'Home', root_path %>
+    </nav>
+
+
     <%= yield %>
   </body>
 </html>

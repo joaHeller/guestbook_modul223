@@ -14,38 +14,32 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(entry_params)
     if @entry.save
-      redirect_to @entry, notice: 'Eintrag wurde erfolgreich erstellt.'
+      redirect_to root_path, notice: 'Eintrag wurde erfolgreich erstellt.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
-  def create
-    @entry = Entry.new(entry_params)
-
-    if params[:entry][:profile_pic]
-      uploaded_file = params[:entry][:profile_pic]
-      file_path = Rails.root.join('public', 'uploads', uploaded_file.original_filename)
-      File.open(file_path, 'wb') do |file|
-        file.write(uploaded_file.read)
-      end
-      @entry.profile_pic = "/uploads/#{uploaded_file.original_filename}"
+  def update
+    if @entry.update(entry_params)
+      redirect_to entries_path, notice: 'Eintrag erfolgreich aktualisiert.'
+    else
+      render :edit
     end
+  end
 
-    respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: "Gästebucheintrag wurde erfolgreich erstellt." }
-        format.json { render :show, status: :created, location: @entry }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
-    end
+  def destroy
+    @entry.destroy
+    redirect_to entries_path, notice: 'Eintrag erfolgreich gelöscht.'
   end
 
   private
 
+  def set_entry
+    @entry = current_user.entries.find(params[:id])
+  end
+
   def entry_params
-    params.require(:entry).permit(:name, :email, :date, :message)
+    params.require(:entry).permit(:name, :title, :content, :email, :date, :message)
   end
 end

@@ -1,21 +1,12 @@
-<h1>Gästebucheinträge</h1>
+<h1>Meine Einträge</h1>
 
-<%= link_to 'Neuen Eintrag erstellen', new_entry_path, class: 'new-entry-button' %>
+<%= link_to 'Neuer Eintrag', new_entry_path, class: 'blue-button' %>
 
-<table>
-
-  <tbody>
-    <% @entries.each do |entry| %>
-      <tr>
-        <td><%= image_tag(entry.profile_pic, size: "100x100") if entry.profile_pic.present? %></td>
-        <td><%= entry.name %></td>
-        <td><%= entry.email %></td>
-        <td><%= entry.date %></td>
-        <td><%= entry.message %></td>
-        <td><%= link_to 'Anzeigen', entry %></td>
-        <td><%= link_to 'Bearbeiten', edit_entry_path(entry) %></td>
-        <td><%= link_to 'Löschen', entry, method: :delete, data: { confirm: 'Bist du sicher?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @entries.each do |entry| %>
+  <div class="entry">
+    <h2><%= entry.title %></h2>
+    <p><%= entry.content %></p>
+    <%= link_to 'Bearbeiten', edit_entry_path(entry) %>
+    <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { turbo_method: :delete, confirm: 'Sind Sie sicher?' } %>
+  </div>
+<% end %>
