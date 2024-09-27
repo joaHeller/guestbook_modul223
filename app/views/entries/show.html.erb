@@ -15,4 +15,11 @@
   <strong>Nachricht:</strong>
   <%= @entry.message %>
 </div>
+<div class="entry">
+  <p><%= @entry.content %></p>
+  <small>Erstellt am: <%= @entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+</div>
+
+<%= link_to 'Bearbeiten', edit_entry_path(@entry) %> |
+<%= link_to 'Zurück zur Liste', entries_path %>
 <%= link_to 'Zurück zur Übersicht', entries_path %>

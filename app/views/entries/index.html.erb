@@ -1,13 +1,13 @@
-<h1>Meine Einträge</h1>
+<h1>Einträge</h1>
 
-<%= link_to 'Neuer Eintrag', new_entry_path, class: 'blue-button' %>
+<%= link_to 'Neuer Eintrag', new_entry_path %>
 
 <% @entries.each do |entry| %>
   <div class="entry">
-    <h2><%= entry.title %></h2>
     <p><%= entry.content %></p>
-     <small>Erstellt am: <%= entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+    <small>Erstellt am: <%= entry.created_at.strftime("%d.%m.%Y %H:%M") %></small>
+    <%= link_to 'Anzeigen', entry_path(entry) %>
     <%= link_to 'Bearbeiten', edit_entry_path(entry) %>
-    <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { turbo_method: :delete, confirm: 'Sind Sie sicher?' } %>
+    <%= link_to 'Löschen', entry_path(entry), method: :delete, data: { confirm: 'Sind Sie sicher?' } %>
   </div>
 <% end %>

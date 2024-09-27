@@ -1,42 +1,36 @@
-<%= form_with(model: entry, local: true, html: { multipart: true }) do |form| %>
-    <% if entry.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
-        <ul>
-          <% entry.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div class="field">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :email %>
-      <%= form.email_field :email %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :date %>
-      <%= form.date_field :date %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :message %>
-      <%= form.text_area :message %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :profile_pic, "Profilbild" %>
-      <%= form.file_field :profile_pic %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
+<%= form_with(model: entry, local: true) do |form| %>
+  <% if entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+      <ul>
+        <% entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-  
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_area :message %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Eintrag speichern' %>
+  </div>
+<% end %>

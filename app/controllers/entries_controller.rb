@@ -19,10 +19,21 @@ class EntriesController < ApplicationController
 
   def create
     @entry = current_user.entries.build(entry_params)
-    if @entry.save
-      redirect_to entries_path, notice: 'Eintrag wurde erfolgreich erstellt.'
-    else
-      render :new
+    
+    Rails.logger.debug "Entry params: #{entry_params.inspect}"
+    Rails.logger.debug "Entry valid? #{@entry.valid?}"
+    Rails.logger.debug "Entry errors: #{@entry.errors.full_messages}" if @entry.invalid?
+    
+    respond_to do |format|
+      if @entry.save
+        Rails.logger.debug "Entry saved successfully"
+        format.html { redirect_to entries_path, notice: 'Eintrag wurde erfolgreich erstellt.' }
+        format.turbo_stream { redirect_to entries_path }
+      else
+        Rails.logger.debug "Failed to save entry"
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@entry, partial: 'form', locals: { entry: @entry }) }
+      end
     end
   end
 
@@ -46,7 +57,7 @@ class EntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:entry).permit(:name, :title, :content, :email, :date, :message)
+    params.require(:entry).permit(:name, :email, :content, :message)
   end
 
   def require_login
@@ -56,3 +67,4 @@ class EntriesController < ApplicationController
     end
   end
 end
+

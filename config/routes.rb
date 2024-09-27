@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
-   get 'users/:id/logout_redirect', to: 'users#logout_redirect', as: 'logout_redirect'
+  get 'users/:id/logout_redirect', to: 'users#logout_redirect', as: 'logout_redirect'
   delete '/logout', to: 'sessions#destroy'
  
 
